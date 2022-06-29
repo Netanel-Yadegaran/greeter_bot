@@ -2,7 +2,7 @@
 Guy Shapira, Netanel Yadegaran
 
 ## Step 0 - Follow Previous Project
-Follow the guidelines here: https://github.com/arielweizman1/Turtlebot-Autonomous-Navigation-using-Lidar-JetsonNano-and-ROS
+This project is a continuation of a previous project by Ariel Weizman and Shir Erdreich. Follow their guidelines here: https://github.com/arielweizman1/Turtlebot-Autonomous-Navigation-using-Lidar-JetsonNano-and-ROS
 
 You should know how to use the LIDAR, rviz, how to map a room, navigate using a keyboard, and send the robot to a point.
 
@@ -166,10 +166,29 @@ catkin_make
 ```
 If all went according to plan, it should compile successfully.
 
-## Step 5 - Set Patrol Points
-Open your map in rviz. Click on the "Publish Point" button at the top. Now you can hover on the map, and see the coordinates in the bottom left.
+### Step 4.4 - Disable Screen Blanking and Sidebar
+For the best experience, disable the screen from going blank after a minute, so you can see the face. Go to `System Settings > Brightness and Lock` and set the setting to `Never`.  
 
-In the launch file of patroller, set your patrol points as triplets of `x,y,z` (`z` should be 0), and orientation in degrees.
+Additionally, disable the sidebar on the left by going to `System Settings > Appearance > Behavior` and enable `Auto-hide the Launcher`.
+
+### Step 4.5 - Enlarge Face
+We maximized the face to better hide the desktop in the background.
+
+In the file: `main.cpp` (in Homer Robot Face source), add this line:
+```
+window.setWindowState(Qt::WindowMaximized);
+```
+Before this line:
+```
+window.show();
+```
+## Step 5 - Set Patrol Points
+Open your map in rviz. Click on the "Publish Point" button at the top. Now you can hover on the map, and see the coordinates in the bottom left. You may also click on the map, and the point will be published to the `/clicked_point`. Subscribe to this topic first to capture the point:
+```
+rostopic echo /clicked_point
+```
+
+In the launch file of patroller, set your patrol points as triplets of `x,y,z` (`z` should be 0), and orientation in degrees (one angle for each triplet `x,y,z`).
 
 ## Step 6 - Run it All!
 Create an `.sh` file, and paste this content:
@@ -195,3 +214,46 @@ roslaunch turtlebot_rviz_launchers view_navigation.launch --screen
 roslaunch patroller patroller.launch
 ```
 The robot should start walking and greeting people.
+
+## Step 7 - Configurations
+Many settings for the navigation are located in `~/catkin_ws/src/turtlebot_apps/turtlebot_navigation/param/`.
+
+It is possible to control the robot's speed, both linear and angular, in `dwa_local_planner_params.yaml`.
+
+You can also control costmap settings in these files:
+* `costmap_common_params.yaml` - For parameters common to both local and global costmaps.
+* `global_costmap_params.yaml` - For the global costmap.
+* `local_costmap_params.yaml` - For the local costmap.
+
+Selection of global and local planners is done in `move_base_params.yaml`.
+
+Visualization of the costmaps in rviz:
+![rviz costmaps](/img/rviz_costmaps_annotated.png)
+
+## Video Demo
+Video showing a detection of a person in rviz, and another showing the robot's face when detecting, can be found in the `vid` folder.
+
+## Future Work
+### Leg Tracking
+There are some false positives when detecting legs. Possible fixes could be:
+* Playing around with the leg tracker parameters.
+* Using a camera for facial recognition, in addition to the leg detection.
+* Using a better LIDAR, with a higher frequency and resolution, and less noise.
+
+Having said that, it tracks real people well. We believe better results can be achieved by using a camera for the initial recognition, and use the leg tracker for tracking.
+
+### Body Movement
+The robot has several motors at the base of the screen. It's possible to rotate the screen around the z axis and to tilt it. Using these, it's possible to rotate the face of the robot towards the detected person, to give it a more welcoming feeling. It may also help to point the camera towards people faces in order to detect and/or recognize them.
+
+We tried to rotate the whole robot towards the detected person, however it didn't work for us. You may look at the `rotate_to_person` in `patroller.py`.
+
+### People Recognition
+In this project, we only detected people. It is possible to use a camera to then recognize the person, and greet them more personally.
+
+### Add Speech
+The Homer Robot Face package has a sister package called Homer TTS. It can be set up to synthesize the speech from the text shown on screen. If you go this route, note our patroller package publishes the `talking_finished` topic to signal the robot face it has finished talking. You must disable this, and let TTS do it instead. See the `talking_finished` publisher in `patroller.py`.
+
+## References
+* Leg Tracker: A. Leigh, J. Pineau, N. Olmedo and H. Zhang, Person Tracking and Following with 2D Laser Scanners, International Conference on Robotics and Automation (ICRA), Seattle, Washington, USA, 2015. [Link to PDF](https://www.cs.mcgill.ca/~aleigh1/ICRA_2015.pdf).
+
+* Homer Face: Seib, Victor and Giesen, Julian and Grüntjens, Dominik and Paulus, Dietrich, Enhancing human-robot interaction by a robot face with facial expressions and synchronized lip movements, 2013, Václav Skala-UNION Agency. [Link to PDF](https://userpages.uni-koblenz.de/~agas/Documents/Seib2013EHI.pdf)
