@@ -12,6 +12,7 @@ In this project, our robot can:
 * Stop and greet the detected person with an animated face.
 
 ## Step 1 - Install OpenCV 3.4
+OpenCV is a computer vision and image proccessing library. It is used in a lot of packages, specifically in the leg_tracker and homer_face packages.
 Install OpenCV 3.4 from source.
 Commands taken from: https://learnopencv.com/install-opencv3-on-ubuntu/
 ```
@@ -83,6 +84,7 @@ We used the code from https://github.com/HotBlackRobotics/hotblackrobotics.githu
 Remember to do `2D Pose Estimate` in rviz, before running the patroller.
 ## Step 4 - Face
 ### 4.1 - Install Festival
+Festival is a speech proccessing and synthesis library. It is used in homer_face package. 
 Clone and make:
 ```
 cd ~
@@ -93,6 +95,7 @@ make
 More info in the file `INSTALL`.
 
 ### 4.2 - Install EST
+EST is short for Edinburgh Speech Tools. It is also used in homer_face package.
 ```
 sudo apt install esound alsa libesd-java audiofile-tools -y
 ```
