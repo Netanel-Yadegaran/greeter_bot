@@ -257,6 +257,6 @@ In this project, we only detected people. It is possible to use a camera to then
 The Homer Robot Face package has a sister package called Homer TTS. It can be set up to synthesize the speech from the text shown on screen. If you go this route, note our patroller package publishes the `talking_finished` topic to signal the robot face it has finished talking. You must disable this, and let TTS do it instead. See the `talking_finished` publisher in `patroller.py`.
 
 ## References
-* Leg Tracker: A. Leigh, J. Pineau, N. Olmedo and H. Zhang, Person Tracking and Following with 2D Laser Scanners, International Conference on Robotics and Automation (ICRA), Seattle, Washington, USA, 2015. [Link to PDF](https://www.cs.mcgill.ca/~aleigh1/ICRA_2015.pdf).
+* Leg Tracker: A. Leigh, J. Pineau, N. Olmedo and H. Zhang, Person Tracking and Following with 2D Laser Scanners, International Conference on Robotics and Automation (ICRA), Seattle, Washington, USA, 2015. [Link to PDF](https://www.cs.mcgill.ca/~aleigh1/ICRA_2015.pdf). [Link to Git](https://github.com/angusleigh/leg_tracker).
 
-* Homer Face: Seib, Victor and Giesen, Julian and Grüntjens, Dominik and Paulus, Dietrich, Enhancing human-robot interaction by a robot face with facial expressions and synchronized lip movements, 2013, Václav Skala-UNION Agency. [Link to PDF](https://userpages.uni-koblenz.de/~agas/Documents/Seib2013EHI.pdf)
+* Homer Face: Seib, Victor and Giesen, Julian and Grüntjens, Dominik and Paulus, Dietrich, Enhancing human-robot interaction by a robot face with facial expressions and synchronized lip movements, 2013, Václav Skala-UNION Agency. [Link to PDF](https://userpages.uni-koblenz.de/~agas/Documents/Seib2013EHI.pdf). [Link to Git](https://github.com/homer-robotics/homer_robot_face).
